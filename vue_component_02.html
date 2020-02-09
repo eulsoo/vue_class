@@ -22,7 +22,10 @@
         <ul class="list">
             <product-list 
                 v-for="item in chips"
-                v-bind:prop-item="item"
+                v-bind:prop-img="item.img"
+                v-bind:prop-title="item.title"
+                v-bind:prop-desc="item.desc"
+                v-bind:prop-price="item.price"
             ></product-list>   
         </ul>
         
@@ -32,13 +35,13 @@
 let productList = {
     template: `
             <li>
-                <img v-bind:src="propItem.img" />
-                <strong>{{ propItem.title }}</strong>
-                <span>{{ propItem.desc }}</span>
-                <b>{{ propItem.price }}</b>
+                <img v-bind:src="propImg" />
+                <strong>{{ propTitle }}</strong>
+                <span>{{ propDesc }}</span>
+                <b>{{ propPrice }}</b>
             </li>
            `,
-    props: ['propItem']
+    props: ['propImg', 'propTitle', 'propDesc', 'propPrice']
 }
 
 const app = new Vue({
