@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+// 1. old
+// const person = {
+//     firstName : 'eulsoo',
+//     lastName : 'jung',
+//     fullName() {
+//         return `${this.firstName} ${this.lastName}`;
+//     },
+//     writeFullName(name) {
+//         const part = name.split(' ');
+//         this.firstName = part[0];
+//         this.lastName = part[1];
+//     }
+// }
+// console.log(person.fullName());
+// person.writeFullName('sungwoo yoon');
+// console.log(person);
+
+// 2. es6
+const person = {
+    firstName : 'eulsoo',
+    lastName : 'jung',
+    get fullName() {
+        return `${this.firstName} ${this.lastName}`;
+    },
+    set fullName(name) {
+        const part = name.split(' ');
+        this.firstName = part[0];
+        this.lastName = part[1];
+        return '정을수'
+    }
+}
+person.fullName = 'sungwoo yoon';
+
+
+// 3. 삭제 가능함
+delete person.fullName; 
+console.log(person);
+// 4. 이미 만들어진 객체에 추가 할 수 있음.
+// const person = {
+//     firstName :'eulsoo',
+//     lastName : 'jung'
+// }
+// Object.defineProperty(person, 'fullName', {
+//     get () {
+//         return `${this.firstName} ${this.lastName}`;
+//     },
+//     set (name) {
+//         const part = name.split(' ');
+//         this.firstName = part[0];
+//         this.lastName = part[1];
+//         return '정을수'
+//     }
+// });
+// person.fullName = 'sungwoo yoon';
+// console.log(person);
+
+
+    </script>
+</body>
+</html>

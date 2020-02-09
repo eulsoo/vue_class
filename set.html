@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <h1>당신은 아이입니까?</h1>
+    <div id="app">{{ areYouKid }}</div>
+    <button>나이 증가</button>
+
+    <script>
+    // gett설명
+    // https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Functions/get
+    const app = document.querySelector('#app');
+    const btn = document.querySelector('button');
+    btn.addEventListener('click', sumAge);
+
+    let person = {
+        age: 19,
+        name: 'eulsoo'
+    }
+    const sumAge = function() {
+        person.age
+    }
+    const computed = function() {
+        return {
+            get areYouKid() {
+                if (person.age > 18) {
+                    return '아니오';
+                } else {
+                    return '네';
+                }
+            }
+        }
+    };
+    let start = app.textContent.indexOf('{')+3;
+    let end = app.textContent.indexOf('}')-4; 
+    let doIt = app.textContent.substr(start, end);
+    app.textContent = computed()[doIt];
+    
+    </script>
+</body>
+</html>
+
+

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <h1>{{ fullName }} 는 {{ person.age }}</h1>
+    <button v-on:click="sumAge()">나이 증가</button>
+</div>
+<script>
+const eulVue = new Vue({
+    el: '#app',
+    data: {
+        person: {
+            age: 15,
+            firstName: 'eulsoo',
+            lastName: 'jung'
+        }
+    },
+    computed: {
+        fullName() {
+            return this.person.firstName + this.person.lastName;
+        }
+    },
+    methods: {
+        sumAge() {
+            this.person.age = this.person.age + 1;
+        }
+    }
+});
+</script>
+</body>
+</html>

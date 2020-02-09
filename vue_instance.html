@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Vue인스턴스</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<style>
+		.off {color:#999}
+	</style>
+</head>
+<body>
+    <div id="app">
+			<input type="text" v-model="age" />
+			<p>저는 {{ age }}살 입니다.</p>
+			<button v-on:click="sumAge()">나이 증가</button>
+    </div>
+    
+    <script>
+	const instance = new Vue({
+		el: '#app',
+		data: {
+			age: 15,
+		},
+		computed: {
+			aboutMe() {
+				return `저는 ${this.age}살 입니다.`;
+			}
+		},
+		methods: {
+			sumAge() {
+				this.age++;
+			}
+		},
+		created() {
+			console.log('인스턴스가 지금 막 생성되었고 데이터 준비까지 마쳤습니다.');
+		}
+    });
+    </script>
+</body>
+</html>

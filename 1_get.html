@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
+</head>
+<body>
+<div id="app">
+    <h1><span>{{ name }}</span>의 소개</h1>
+    이름 :<input type="text" class="v-model" value="eulsoo"/>
+</div>
+
+<script>
+const appName = document.querySelector('#app')
+const inputName = appName.querySelector('.v-model');
+const spanEl = appName.querySelector('span');
+
+const data = {
+    get name() {
+        return inputName.value;
+    },
+    set name(str) {
+        spanEl.textContent = str;
+    }
+}
+
+spanEl.textContent = data.name;
+
+inputName.addEventListener('keyup', (e)=>{
+    data.name = e.target.value;
+});
+
+</script>
+</body>
+</html>

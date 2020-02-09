@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+	<meta charset="UTF-8">
+	<title>Vue 인스턴스</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<style>
+		.on {color:red}
+		.eulsoo {font-size: 30px;}
+	</style>
+</head>
+<body>
+	<div id="app">
+		<h1><span>{{ name }}</span></h1>
+		<input type="text" class="v-model" value="ok"/>
+		<!-- <my-component></my-component> -->
+	</div>
+	<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+	<script>
+	function foo(a, b, c) {
+		console.log(arguments)
+		c = 40;
+		console.log(a);
+		console.log(b);
+		console.log(c);
+		
+	}
+	foo(1, 2)
+	
+	Vue.component('my-component', {
+		template: '<div>사용자 정의 컴포넌트 입니다!</div>'
+	})
+	
+	const instance = new Vue({
+		el: '#app',
+		data: {
+			age: [15, 20, 30],
+			name: '정을수',
+			ifdata: 19,
+			markup: `<span>15</span>`,
+			type: 'click',
+			classObj: {
+				on: false,
+				eulsoo: false
+			},
+			target: '',
+			items: [
+				{message:'foo', id:'1928363', 완료여부:true},
+				{message:'bar', id:'1892736', 완료여부:false}
+			],
+			eultems: {
+				a: '1111',
+				b: '2222'
+			}
+		},
+        computed: {
+            aboutMe() {
+                return `저는 ${this.age[0]}살 입니다.`;
+            }
+        },
+        methods: {
+            sumAge() {
+				var a  = this.age[0] + 1
+			},
+			styleOn(a, e) {
+				console.log(a);
+				console.log(e);
+				
+				this.classObj.on = true;
+				this.classObj.eulsoo = true;
+			},
+			scrollWork() {
+				console.log(this.target.scrollTop);
+				if (this.target.scrollTop > 100) {
+					this.classObj.on = true;
+					this.classObj.eulsoo = true;
+				} 
+			}
+		},
+		mounted() {
+			this.target = document.querySelector('html');
+			window.addEventListener('scroll', this.scrollWork);
+		}
+	});
+
+	
+	
+	
+	</script>
+</body>
+</html>
