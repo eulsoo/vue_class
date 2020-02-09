@@ -14,10 +14,16 @@
 		.list > li > img {width:200px; margin-bottom:20px;}
         .list > li > strong {font-size:20px; color:#666; margin-bottom:10px}
         .list > li > span{margin-bottom:10px;}
+        header {background-color:wheat; padding:5px; margin-bottom:10px}
+        .list button {padding:5px; font-size:16px; margin-left:auto}
 	</style>
 </head>
 <body>
 	<div id="app">
+        <top-header
+            v-bind:total="cart"
+            v-bind:total-price="totalPrice"
+        ></top-header>
         <h1>Sales Product : 장바구니({{ cart }})</h1>
         <ul class="list">
             <product-list 
@@ -31,52 +37,60 @@
 	</div>
 
 <script>
+let topHeader = {
+    template:`
+        <header> 총계: {{total}} , 총액: {{totalPrice}} </header>
+    `,
+    props:['total', 'totalPrice']
+}
+
 let productList = {
     template: `
-            <li v-on:click="childWork">
+            <li>
                 <img v-bind:src="propItem.img" />
                 <strong>{{ propItem.title }}</strong>
                 <span>{{ propItem.desc }}</span>
                 <b>{{ propItem.price }}</b>
+                <button v-on:click="childWork(propItem.price)">구입하기</button>
             </li>
            `,
     props: ['propItem'],
     methods: {
-        childWork() {
-            this.$emit('pick-up');
+        childWork(price) {
+            this.$emit('pick-up', price);
         }
     }
 }
 
 const app = new Vue({
     el: '#app',
-    components: {
-        'product-list':productList
-    },
+    components: { productList, topHeader },
     methods: {
-        parentWork() {
+        parentWork(price) {
             this.cart += 1;
+            this.totalPrice += price;
         }
     },
     data: {
         cart: 0,
+        totalPrice:0,
         chips:[{
                     img:`images/mango.jpg`,
                     title:`자연그대로 망고칩`,
                     desc:`단맛이 그대로 살아있는 망고칩입니다.`,
-                    price:`2,500원`
+                    price: 2500
                 },
                 {
                     img:`images/apple.jpg`,
                     title:`천연 오가닉 사과칩`,
                     desc:`깨끗한 재료를 엄선하여 자연을 그대로 담았습니다.`,
-                    price:`2,000원`
+                    price: 2000
                 },
                 {
                     img:`images/jujube.jpg`,
                     title:`아이깨끗 대추칩`,
                     desc:`새콤함이 살아있는 반건조 대추그대로.`,
-                    price:`3,000원`
+                    price: 3000
                 }
             ]
     }
