@@ -19,38 +19,34 @@
 <body>
 	<div id="app">
         <h1>Sales Product</h1>
-        <ul class="list">
-            <product-list 
-                v-for="item in chips"
-                v-bind:prop-img="item.img"
-                v-bind:prop-title="item.title"
-                v-bind:prop-desc="item.desc"
-                v-bind:prop-price="item.price"
-            ></product-list>   
-        </ul>
-        
+        <product-list v-bind:prop-item="chips"></product-list>
 	</div>
 
 <script>
 let productList = {
     template: `
-            <li>
-                <img v-bind:src="propImg" />
-                <strong>{{ propTitle }}</strong>
-                <span>{{ propDesc }}</span>
-                <b>{{ propPrice }}</b>
+        <ul class="list">
+            <li v-for="item in propItem">
+                <img v-bind:src="item.img" />
+                <strong>{{ item.title }}</strong>
+                <span>{{ item.desc }}</span>
+                <b>{{ item.price }}</b>
+                <i>{{ priceSet }}</i>
             </li>
+        </ul>
            `,
-    props: ['propImg', 'propTitle', 'propDesc', 'propPrice']
+    props: ['propItem'],
+    computed: {
+        priceSet() {
+            return this.propItem[0].price + '입니다'
+        }
+    }
 }
 
 const app = new Vue({
     el: '#app',
     components: {
         'product-list':productList
-    },
-    props: {
-
     },
     data: {
         chips:[{
@@ -74,6 +70,7 @@ const app = new Vue({
             ]
     }
 });
+
 </script>
 </body>
 </html>

@@ -16,55 +16,86 @@
         .list > li > span{margin-bottom:10px;}
         header {background-color:wheat; padding:5px; margin-bottom:10px}
         .list button {padding:5px; font-size:16px; margin-left:auto}
+        footer {clear:both; padding:5px; background-color:wheat;}
 	</style>
 </head>
 <body>
-	<div id="app">
-        <top-header
-            v-bind:total="cart"
-            v-bind:total-price="totalPrice"
-        ></top-header>
-        <h1>Sales Product : 장바구니({{ cart }})</h1>
-        <ul class="list">
-            <product-list 
-                v-for="item in chips"
-                v-bind:prop-item="item"
-                v-on:pick-up="parentWork"
-                v-bind:key="item.img"
-            ></product-list>   
-        </ul>
-        
-	</div>
+<div id="app">
+    <top-header
+        v-bind:total="cart"
+        v-bind:total-price="totalPrice"
+    ></top-header>
+    <h1>Sales Product : cart({{ cart }})</h1>
+    
+    <product-list 
+        v-bind:prop-item="chips"
+        v-on:pick-up="parentWork"
+    ></product-list>   
+    </ul>
+    <bottom-foot></bottom-foot>
+    
+</div>
 
 <script>
-let topHeader = {
+const bus = new Vue();
+const bottomFoot = {
+    template:`
+        <footer>
+            망고칩: {{ mango }}개,
+            애플칩: {{ apple }}개,
+            대추칩: {{ jujube }}개
+        </footer>`,
+    data() {
+        return {
+            mango: 0,
+            apple: 0,
+            jujube: 0
+        }
+    },
+    methods: {
+        sum(index) {
+            if (index === 0) this.mango++;
+            if (index === 1) this.apple++;
+            if (index === 2) this.jujube++;
+        }
+    },
+    created() {
+        bus.$on('bus-pickup', function (index) {
+            this.sum(index)
+            // 선언형 함수안의 this는 버스를 가리키기 때문에 버스에 데이터를 업데이트할 수 있음.
+            // arrow함수안의 this는 컴포넌트 인스턴스를 가리키기 때문에 버스안에 데이터에 접근할 수 없음.
+        });
+    }
+}
+const topHeader = {
     template:`
         <header> 총계: {{total}} , 총액: {{totalPrice}} </header>
     `,
     props:['total', 'totalPrice']
 }
-
-let productList = {
+const productList = {
     template: `
-            <li>
-                <img v-bind:src="propItem.img" />
-                <strong>{{ propItem.title }}</strong>
-                <span>{{ propItem.desc }}</span>
-                <b>{{ propItem.price }}</b>
-                <button v-on:click="childWork(propItem.price)">구입하기</button>
+        <ul class="list">
+            <li v-for="(item, i) in propItem">
+                <img v-bind:src="item.img" />
+                <strong>{{ item.title }}</strong>
+                <span>{{ item.desc }}</span>
+                <b>{{ item.price }}</b>
+                <button v-on:click="childWork(item.price, i)">구입하기</button>
             </li>
+        </ul>
            `,
     props: ['propItem'],
     methods: {
-        childWork(price) {
+        childWork(price, index) {
             this.$emit('pick-up', price);
+            bus.$emit('bus-pickup', index);
         }
     }
 }
-
 const app = new Vue({
     el: '#app',
-    components: { productList, topHeader },
+    components: { productList, topHeader, bottomFoot },
     methods: {
         parentWork(price) {
             this.cart += 1;
@@ -92,9 +123,14 @@ const app = new Vue({
                     desc:`새콤함이 살아있는 반건조 대추그대로.`,
                     price: 3000
                 }
-            ]
+            ],
     }
 });
+
+for (let i = 0; i < 4; i++) {
+
+}
+
 </script>
 </body>
 </html>

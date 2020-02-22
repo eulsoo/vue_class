@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+	<meta charset="UTF-8">
+	<title>Vue 컴포넌트</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<style>
+        * {margin:0; padding:0}
+        li {list-style: none;}
+        body {padding:30px;}
+        .list {margin:20px 0;}
+        .list > li {width:200px; border:1px solid gray; padding:10px; float:left; margin:10px;}
+        .list > li > * {display:block}
+		.list > li > img {width:200px; margin-bottom:20px;}
+        .list > li > strong {font-size:20px; color:#666; margin-bottom:10px}
+        .list > li > span{margin-bottom:10px;}
+        header {background-color:wheat; padding:5px; margin-bottom:10px}
+        .list button {padding:5px; font-size:16px; margin-left:auto}
+        footer {clear:both; padding:5px; background-color:wheat;}
+	</style>
+</head>
+<body>
+<div id="app">
+    <top-header
+        v-bind:total="cart"
+        v-bind:total-price="totalPrice"
+    ></top-header>
+    <h1>Sales Product : cart({{ cart }})</h1>
+    
+    <product-list 
+        v-bind:prop-item="chips"
+        v-on:pick-up="parentWork"
+    ></product-list>   
+    </ul>
+    <bottom-foot ref="child"></bottom-foot>
+    
+</div>
+
+<script>
+const bus = new Vue();
+const bottomFoot = {
+    template:`
+        <footer v-bind:style="'background-color' + setColor ">
+            망고칩: {{ mango }}개,
+            애플칩: {{ apple }}개,
+            대추칩: {{ jujube }}개
+        </footer>`,
+    data() {
+        return {
+            mango: 0,
+            apple: 0,
+            jujube: 0,
+            setColor: 'blue'
+        }
+    },
+    methods: {
+        sum(index) {
+            if (index === 0) this.mango++;
+            if (index === 1) this.apple++;
+            if (index === 2) this.jujube++;
+        },
+        send() {
+           console.log('aa')
+        }
+    },
+    created() {
+        bus.$on('bus-pickup', (index) => {
+            this.sum(index)
+            // 선언형 함수안의 this는 버스를 가리키기 때문에 버스에 데이터를 업데이트할 수 있음.
+            // arrow함수안의 this는 컴포넌트 인스턴스를 가리키기 때문에 버스안에 데이터에 접근할 수 없음.
+        });
+    }
+}
+const topHeader = {
+    template:`
+        <header> 총계: {{total}} , 총액: {{totalPrice}} </header>
+    `,
+    props:['total', 'totalPrice']
+}
+const productList = {
+    template: `
+        <ul class="list">
+            <li v-for="(item, i) in propItem">
+                <img v-bind:src="item.img" />
+                <strong>{{ item.title }}</strong>
+                <span>{{ item.desc }}</span>
+                <b>{{ item.price }}</b>
+                <button v-on:click="childWork(item.price, i)">구입하기</button>
+            </li>
+        </ul>
+           `,
+    props: ['propItem'],
+    methods: {
+        childWork(price, index) {
+            this.$emit('pick-up', price);
+            bus.$emit('bus-pickup', index);
+        }
+    }
+}
+const app = new Vue({
+    el: '#app',
+    components: { productList, topHeader, bottomFoot },
+    methods: {
+        parentWork(price) {
+            this.cart += 1;
+            this.totalPrice += price;
+            this.$refs.child.send();
+            // $refs로 자식 컴포넌트에 접근하여 거기에 있는 send()를 실행시킨다.
+        }
+    },
+    data: {
+        cart: 0,
+        totalPrice:0,
+        chips:[{
+                    img:`images/mango.jpg`,
+                    title:`자연그대로 망고칩`,
+                    desc:`단맛이 그대로 살아있는 망고칩입니다.`,
+                    price: 2500
+                },
+                {
+                    img:`images/apple.jpg`,
+                    title:`천연 오가닉 사과칩`,
+                    desc:`깨끗한 재료를 엄선하여 자연을 그대로 담았습니다.`,
+                    price: 2000
+                },
+                {
+                    img:`images/jujube.jpg`,
+                    title:`아이깨끗 대추칩`,
+                    desc:`새콤함이 살아있는 반건조 대추그대로.`,
+                    price: 3000
+                }
+            ],
+    }
+});
+</script>
+</body>
+</html>

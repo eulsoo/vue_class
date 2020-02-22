@@ -1,0 +1,5 @@
+1) ./main.js 를 셋팅한다.
+2) ./app.vue 에서 TooBar컴포넌트 설치태그와 자식(지역) 컴포넌트로 등록.
+3) ./components/TooBar.vue 라우터링크 셋팅과 CSS셋팅
+4) ./router/index.js 컨텐츠로 사용할 컴포넌트 불어오고, 경로마다 셋팅.
+5) ./views/AskView.vue, JobsView.vue, NewsView.vue 파일 만들기
