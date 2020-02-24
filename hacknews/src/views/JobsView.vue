@@ -17,7 +17,7 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch('FETCH_LIST', `jobs`);
+    this.$store.dispatch('FETCH_LIST', 'jobs');
   }
 }
 </script>

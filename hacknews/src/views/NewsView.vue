@@ -17,7 +17,7 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch('FETCH_LIST', `news`);
+    this.$store.dispatch('FETCH_LIST', 'news');
   }
 }
 </script>

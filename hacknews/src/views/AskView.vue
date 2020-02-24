@@ -17,7 +17,7 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch('FETCH_LIST', `ask`);
+    this.$store.dispatch('FETCH_LIST', 'ask');
   }
 }
 </script>
