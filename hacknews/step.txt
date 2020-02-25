@@ -18,3 +18,10 @@
 3) ./views/NewsView.vue 에서 FETCH_로 된 함수들을 실행하면 store의 장치들이 돌면서 데이터를 저장한다.
 4) ./views/NewsView.vue 에서 store에 저장된 데이터를 필요한 페이지에 다시 가져와서 사용한다.
 5) *실습* AskView, JobsView도 해본다.
+
+** ListItem을 컴포넌트로 처리
+1) ./components/ListItem.vue를 만들고 마크업을 넣는다.
+2) NewsView.vue에 import하고 components에 지역으로 등록한다.
+3) 받아온 데이터를 ListItem으로 넘겨주고 ListItem에서는 prop으로 받는다.
+4) ListItem안에서 $route.name에 따라 <templet>로 분기처리를 한다.
+4) *실습* AskView, JobsView도 해본다.
