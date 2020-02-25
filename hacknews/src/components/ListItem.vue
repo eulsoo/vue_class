@@ -1,12 +1,12 @@
 <template>
   <ol class="list">
-    <li v-for="item in propList" v-bind:key="item.id">
+    <li v-for="item in list" v-bind:key="item.id">
       <b>{{ item.time_ago}}</b>
-      <template v-if="$route.name === 'News'">
+      <template v-if="$route.name === 'news'">
             <span> by {{ item.user }}</span><br/>
             <a v-bind:href="item.url">{{ item.title }}<i>({{item.comments_count}})</i></a>
       </template>
-      <template v-else-if="$route.name === 'Ask'">
+      <template v-else-if="$route.name === 'ask'">
             <span> by {{ item.user }}</span><br/>
             <a v-bind:href="item.url">{{ item.title }}<i>({{item.comments_count}})</i></a>
       </template>
@@ -20,7 +20,14 @@
 
 <script>
 export default {
-    props:['propList'],
+    computed: {
+      list() {
+        return this.$store.state.list;
+      }
+    },
+    created() {
+      this.$store.dispatch('FETCH_LIST', this.$route.name);
+    }
 }
 </script>
 
