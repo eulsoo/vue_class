@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <tool-bar></tool-bar> <!-- 메뉴 -->
-    <router-view></router-view> <!-- 컨텐츠 -->
+    <main class="content">
+      <router-view></router-view> <!-- 컨텐츠 -->
+    </main>
   </div>
 </template>
 

@@ -3,11 +3,11 @@
     <li v-for="item in list" v-bind:key="item.id">
       <b>{{ item.time_ago}}</b>
       <template v-if="$route.name === 'news'">
-            <span> by {{ item.user }}</span><br/>
+            <span> by <router-link v-bind:to="`/user/${item.user}`">{{ item.user }}</router-link></span><br/>
             <a v-bind:href="item.url">{{ item.title }}<i>({{item.comments_count}})</i></a>
       </template>
       <template v-else-if="$route.name === 'ask'">
-            <span> by {{ item.user }}</span><br/>
+            <span> by <router-link v-bind:to="`/user/${item.user}`">{{ item.user }}</router-link></span><br/>
             <a v-bind:href="item.url">{{ item.title }}<i>({{item.comments_count}})</i></a>
       </template>
       <template v-else>
