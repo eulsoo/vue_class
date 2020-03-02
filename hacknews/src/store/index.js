@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { fetchListItem, fetchUserInfo } from "../api/index.js";
+import { fetchListItem, fetchUserInfo, fetchAskItem } from "../api/index.js";
 
 Vue.use(Vuex);
 
@@ -20,6 +20,8 @@ export const store = new Vuex.Store({
       state.user = user;
     },
     SET_ITEM(state, id) {
+      console.log(id);
+      
       state.item = id;
     }
   },
@@ -56,7 +58,7 @@ export const store = new Vuex.Store({
     },
     async FETCH_ITEM(context, id) {
       try {
-        const res = await fetchUserInfo(id);
+        const res = await fetchAskItem(id);
         context.commit("SET_ITEM", res.data);
         return res;
       } catch (err) {

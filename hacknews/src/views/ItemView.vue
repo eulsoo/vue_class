@@ -2,24 +2,37 @@
   <div>
       <div class="user_profile">
           <span>by</span>
-          <strong>alhirzel</strong>
-          <b>- a day ago</b>
+          <strong>{{ askItem.user }}</strong>
+          <b>- {{ askItem.time_ago }}</b>
       </div>
-      <h2>Ask HN: Good ways to capture institutional knowledge?</h2>
-      <div>Successful companies institutionalize the knowledge of their employees; this leads to better continuity and faster on-boarding. Things like huge monorepos of useful code, internal tools, process manuals, etc. are example products of this.</div>
+      <h2>{{ askItem.title }}</h2>
+      <div v-html="askItem.content"></div>
       <ul class="comments">
-          <li><div>Store readme markdown files in the sourcerepo along with the code itself. Make sure during review that changes to code are reflected in the markdown.</div></li>
+            <li v-for="item in askItem.comments" v-bind:key="item.id">
+              <div v-html="item.content"></div>
+            </li>
       </ul>
   </div>
 </template>
 
 <script>
 export default {
-    
+    computed: {
+        askItem() {
+            return this.$store.state.item;
+        }
+    },
+    created() {
+        this.$store.dispatch('FETCH_ITEM',this.$route.query.id)
+    }
 }
 </script>
 
 <style scoped>
+h2 {
+    margin: 5px 0 30px;
+    font-size: 32px;
+}
 .comments {margin-top:30px;font-size:16px;color:rgb(131, 96, 8)}
 .comments ul {margin:10px 0}
 .comments li {
