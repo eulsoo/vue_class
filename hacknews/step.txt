@@ -1,37 +1,37 @@
-** 설치
+1_프로젝트생성
+1) repository 생성과 클론
+2) vue create vue_hacker
 
-
-** 라우터 설정으로 필요한 화면 보여주기
+2_라우터설정 : 라우터으로 필요한 화면 보여주기
 1) ./main.js 를 셋팅한다.
 2) ./app.vue 에서 TooBar컴포넌트 설치태그와 자식(지역) 컴포넌트로 등록.
 3) ./components/TooBar.vue 라우터링크셋팅과 CSS셋팅
 4) ./router/index.js 컨텐츠로 사용할 컴포넌트 불어오고, 경로마다 셋팅.
 5) ./views/AskView.vue, JobsView.vue, NewsView.vue 파일 만들기
 
-** axios로 데이터를 요청하고 받아오고 사용하기
+3_axios데이터요청 : axios로 데이터를 요청하고 받아오고 사용하기
 1) ./views/NewsView.vue에서 axios를 import해서 데이터를 받아온다.
 2) ./views/NewsView.vue에서 style과 마크업을 셋팅한다
 3) ./views/NewsView.vue에서 받아온 데이터를 이용해 v-for로 화면에 맞는 데이터와 함께 랜더링한다.
 4) *실습* AskView, JobsView도 해본다.
 
-
-** Store를 이용해 데이터를 요청하고 받아오고 저장하고 사용하기
+4_Store사용 : Store를 이용해 데이터를 요청하고 받아오고 저장하고 사용하기
 1) ./api/index.js 를 만들고 통신으로 데이터를 요청하는 함수들을 설정한다.
 2) ./store/index.js 를 만들고 1)에 만든 함수들을 실행시켜 약속된 타이밍에 데이터를 받아오고, 저장하는 함수들을 설정한다.
 3) ./views/NewsView.vue 에서 FETCH_로 된 함수들을 실행하면 store의 장치들이 돌면서 데이터를 저장한다.
 4) ./views/NewsView.vue 에서 store에 저장된 데이터를 필요한 페이지에 다시 가져와서 사용한다.
 5) *실습* AskView, JobsView도 해본다.
 
-** ListItem을 컴포넌트로 처리
+5_컴포넌트처리 : ListItem을 컴포넌트로 처리
 1) ./components/ListItem.vue를 만들고 마크업을 넣는다.
 2) NewsView.vue에 import하고 components에 지역으로 등록한다.
 3) 받아온 데이터를 ListItem으로 넘겨주고 ListItem에서는 prop으로 받는다.
 4) ListItem안에서 $route.name에 따라 <templet>로 분기처리를 한다.
 5) *실습* AskView, JobsView도 해본다.
 
-** *실습* 각 view파일의 dispatch명령을 ListItem으로 옮긴다.
+6_컴포넌트dispatch : *실습* 각 view파일의 dispatch명령을 ListItem으로 옮긴다.
 
-** user페이지 만들기
+7_User페이지 : News화면에 user클릭시 화면 만들기
 1) UserView.vue파일을 만든다.
 2) /routes/index.js 에서 /user 항목을 설정한다.
 3) ListItem에서 <router-link>로 user페이지로 들어가는 링크를 만든다.
@@ -40,3 +40,7 @@
 6) ./store/index.js 를 만들고 1)에 만든 함수들을 실행시켜 약속된 타이밍에 데이터를 받아오고, 저장하는 함수를 설정한다.
 7) ./views/UserView.vue 에서 FETCH_로 된 함수들을 실행하면 store의 장치들이 돌면서 데이터를 저장한다.
 8) ./views/UserView.vue 에서 store에 저장된 데이터를 필요한 페이지에 다시 가져와서 사용한다.
+
+8_Ask상세페이지 : Ask화면에서 하나의 글에 대한 상세 화면 만들기
+1) 클릭했을 때 http://localhost:8080/item?id=22454333 형식의 주소에 대해서 라우터의 동작을 설정한다.
+2) 
