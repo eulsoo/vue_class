@@ -4,6 +4,7 @@ import NewsView from '../views/NewsView.vue' // 뉴스컴포넌트 가져옴
 import AskView from '../views/AskView.vue' // 애스크컴포넌트 가져옴
 import JobsView from '../views/JobsView.vue' // 잡스컴포넌트 가져옴
 import UserView from '../views/UserView.vue' // 유저컴포넌트 가져옴
+import ItemView from '../views/ItemView.vue' // 아이템컴포넌트 가져옴
 
 Vue.use(VueRouter)
 export default new VueRouter({
@@ -33,6 +34,11 @@ export default new VueRouter({
       path: "/user/:id",
       name: "user",
       component: UserView
+    },
+    {
+      path: "/item/",
+      name: "item",
+      component: ItemView
     }
   ]
 });

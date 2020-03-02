@@ -12,6 +12,9 @@ function fetchListItem(pageName) {
 function fetchUserInfo(userName) {
   return axios.get(`${config.baseUrl}user/${userName}.json`);
 }
+function fetchAskItem(askId) {
+  return axios.get(`${config.baseUrl}item/${askId}.json`);
+}
 
 // 3. export : 행동대장들을 actions가 쓸 수 있도록 export해둠.
-export { fetchListItem, fetchUserInfo };
+export { fetchListItem, fetchUserInfo, fetchAskItem };

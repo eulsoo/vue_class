@@ -8,7 +8,8 @@ export const store = new Vuex.Store({
   state: {
     // 데이터 저장하는 일
     list: [],
-    user:''
+    user:'',
+    item:''
   },
   mutations: {
     // state에 저장
@@ -17,6 +18,9 @@ export const store = new Vuex.Store({
     },
     SET_USER(state, user) {
       state.user = user;
+    },
+    SET_ITEM(state, id) {
+      state.item = id;
     }
   },
   actions: {
@@ -45,6 +49,15 @@ export const store = new Vuex.Store({
       try {
         const res = await fetchUserInfo(userName);
         context.commit("SET_USER", res.data);
+        return res;
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    async FETCH_ITEM(context, id) {
+      try {
+        const res = await fetchUserInfo(id);
+        context.commit("SET_ITEM", res.data);
         return res;
       } catch (err) {
         console.log(err);

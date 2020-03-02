@@ -19,7 +19,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .user_profile {font-size: 24px}
 .user_profile > * {display: block;}
 .user_profile > span {margin-right:5px}
