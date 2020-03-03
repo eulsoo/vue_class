@@ -23,7 +23,7 @@ header {
 header h1 {position: absolute; color:white; top:21px; right:30px; font-size:18px;}
 header a {color:white; text-decoration: none; padding-bottom:3px; }
 header a + a {margin-left:20px}
-.router-link-active {
+header .active {
     color:coral;
     border-bottom:3px solid coral
 }
