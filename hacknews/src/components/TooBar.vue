@@ -1,13 +1,31 @@
 <template>
   <header>
-      <router-link to="/news">News</router-link>
-      <router-link to="/ask">Ask</router-link>
-      <router-link to="/jobs">Jobs</router-link>
+        <router-link 
+            to="/news" 
+            v-bind:class="{active:isNav.isNews}"
+        >News</router-link>
+        <router-link 
+            to="/ask"
+            v-bind:class="{active:isNav.isAsk}"
+        >Ask</router-link>
+        <router-link 
+            to="/jobs"
+            v-bind:class="{active:isNav.jobs}"
+        >Jobs</router-link>
   </header>
 </template>
 
 <script>
 export default {
+    data() {
+        return {
+            isNav: {
+                isNews:true,
+                isAsk:false,
+                isJobs:false
+            }
+        }
+    },
     created() {
         localStorage.setItem('nav', this.$route.name);
     }
