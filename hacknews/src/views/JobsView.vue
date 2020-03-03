@@ -8,6 +8,9 @@
 import listItem from '../components/ListItem.vue';
 export default {
   components:{listItem},
+  created() {
+      localStorage.setItem('nav', this.$route.name);
+  }
 }
 </script>
 

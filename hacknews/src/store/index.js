@@ -20,8 +20,6 @@ export const store = new Vuex.Store({
       state.user = user;
     },
     SET_ITEM(state, id) {
-      console.log(id);
-      
       state.item = id;
     }
   },

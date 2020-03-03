@@ -3,14 +3,17 @@
         <router-link 
             to="/news" 
             v-bind:class="{active:isNav.isNews}"
+            v-on:click.native="setNav()"
         >News</router-link>
         <router-link 
             to="/ask"
             v-bind:class="{active:isNav.isAsk}"
+            v-on:click.native="setNav()"
         >Ask</router-link>
         <router-link 
             to="/jobs"
-            v-bind:class="{active:isNav.jobs}"
+            v-bind:class="{active:isNav.isJobs}"
+            v-on:click.native="setNav()"
         >Jobs</router-link>
   </header>
 </template>
@@ -26,8 +29,20 @@ export default {
             }
         }
     },
-    created() {
-        localStorage.setItem('nav', this.$route.name);
+    methods : {
+        setNav() {
+            let currentName = localStorage.getItem('nav');
+            let uppCrrName = currentName.charAt(0).toUpperCase() + currentName.slice(1);
+            
+            for ( let item in this.isNav ) {
+                if (item === `is${uppCrrName}`) {
+                    this.isNav[item] = true;
+                } else {
+                    this.isNav[item] = false;
+                }
+            }
+
+        }
     }
 }
 </script>

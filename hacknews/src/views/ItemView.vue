@@ -23,7 +23,7 @@ export default {
         }
     },
     created() {
-        this.$store.dispatch('FETCH_ITEM',this.$route.query.id)
+        this.$store.dispatch('FETCH_ITEM',this.$route.query.id);
     }
 }
 </script>

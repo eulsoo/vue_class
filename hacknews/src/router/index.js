@@ -12,8 +12,8 @@ export default new VueRouter({
   routes: [
     {
       path: "/",
-      name: "news",
-      component: NewsView
+      name: "home",
+      redirect: "/news"
     },
     {
       path: "/news",
@@ -36,7 +36,7 @@ export default new VueRouter({
       component: UserView
     },
     {
-      path: "/item/",
+      path: "/item",
       name: "item",
       component: ItemView
     }
