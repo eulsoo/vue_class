@@ -4,12 +4,11 @@
 
 <script>
 import listItem from '../components/ListItem.vue';
+// import listMixin from '../mixins/listMixin.js';
 
 export default {
   components:{listItem},
-  created() {
-      localStorage.setItem('nav', this.$route.name);
-  }
+  // mixins:[listMixin]
 }
 </script>
 

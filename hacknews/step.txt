@@ -60,4 +60,6 @@
 7) 실습: News페이지 링크의 댓글 숫자를 클릭하면 해당 /item(아이디)로 이동해야한다. Ask상세페이지처럼 만들어 보시오.
 
 10_컴포넌트마다 할일을 하나의 파일에서 하도록 하기(믹스인);
-1) mixin/listMixin.js만들기
+1) mixin/listMixin.js만들고, AskView, NewsView, JobsView의 공통적인일 즉 localStorage에 현재 페이지 상태 저장하는 부분을 넣고 export 함.
+2) AskView, NewsView, JobsView에 믹스인 불러와서 mixins항목으로 등록함.
+3) 어짜피 ListItem은 세컴포넌트에서 모두 쓰는 컴포넌트니까 믹스인 없이 여기에 해도 됨

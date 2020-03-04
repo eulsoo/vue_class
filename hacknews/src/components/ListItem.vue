@@ -29,6 +29,7 @@ export default {
   },
   created() {
     this.$store.dispatch('FETCH_LIST', this.$route.name);
+    localStorage.setItem('nav', this.$route.name);
   }
 }
 </script>
