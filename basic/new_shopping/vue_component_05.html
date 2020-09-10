@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+	<meta charset="UTF-8">
+	<title>Vue 컴포넌트</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<style>
+        * {margin:0; padding:0}
+        li {list-style: none;}
+        body {padding:30px;}
+        .list {margin:20px 0;}
+        .list > li {width:200px; border:1px solid gray; padding:10px; float:left; margin:10px; position:relative;}
+        .list > li > * {display:block}
+		.list > li > img {width:200px; margin-bottom:20px;}
+        .list > li > strong {font-size:20px; color:#666; margin-bottom:10px}
+        .list > li > span{margin-bottom:10px;}
+        .list > li > button {position:absolute; padding:3px 20px; border:1px solid #999; right:10px; bottom:10px}
+        .cart {margin:20px 0; width:700px;}
+        .cart > ul > li {padding:10px 0; border-bottom:1px dashed #999}
+        .cart > ul > li > a {font-size:11px; color:red}
+        
+	</style>
+</head>
+<body>
+	<div id="app">
+        <h1>Sales Product 총갯수 : {{ totalNum }}개, 총가격 {{ totalPrice }}원 </h1>   
+        <div class="cart">
+            <h4>구입목록</h4>
+            <ul>
+                <li v-for="(item, i) in crrIndex">
+                    <strong>{{ chips[item].title }}</strong>
+                    <span>{{ chips[item].price }}원</span>
+                    <a href="" @click.prevent="removeItem(item, i)">삭제</a>
+                </li>
+            </ul>
+        </div>
+        <product-list 
+            v-bind:chips="chips"
+            @buy="addItem"
+        ></product-list>  
+	</div>
+
+<script>
+// 이름 정리를 해보자.
+// parentWork -> addItem, 
+// childWork -> butWork,
+// prop-item -> chips,
+// pick-up -> buy
+
+Vue.component('product-list', {
+    template:`
+        <ul class="list">
+            <li v-for="(item, i ) in chips">
+                <img v-bind:src="item.img" />
+                <strong>{{ item.title }}</strong>
+                <span>{{ item.desc }}</span>
+                <b>{{ item.price }}</b>
+                <button @click="buyWork(i)">구입</button>
+            </li>
+        </ul>
+    `,
+    props:['chips'],
+    methods: {
+        buyWork(index) {
+            this.$emit('buy', index)
+        }
+    },
+    data() {
+        return {}
+    }
+});
+
+new Vue({
+    el: '#app',
+    data: {
+        eulsoo :'정을수',
+        crrIndex: [], // 지금처럼 '선택번호'를 배열에 가지고 있는것 보다는 '제품이름'이 낫지 않을까?
+        totalNum: 0,
+        totalPrice : 0,
+        chips:[{
+                img:`images/mango.jpg`,
+                title:`자연그대로 망고칩`,
+                desc:`단맛이 그대로 살아있는 망고칩입니다.`,
+                price:2500,
+            },
+            {
+                img:`images/apple.jpg`,
+                title:`천연 오가닉 사과칩`,
+                desc:`깨끗한 재료를 엄선하여 자연을 그대로 담았습니다.`,
+                price:2500,
+            },
+            {
+                img:`images/jujube.jpg`,
+                title:`아이깨끗 대추칩`,
+                desc:`새콤함이 살아있는 반건조 대추그대로.`,
+                price:3000,
+            }]
+    },
+    methods: {
+        addItem(index) {
+            this.totalNum += 1;
+            this.totalPrice += this.chips[index].price;
+            this.crrIndex.push(index);
+        },
+        removeItem(index, crr) { // 지울때는 crr, 전체 갯수와 가격 계산은 index
+            this.totalNum -= 1;
+            this.totalPrice -= this.chips[index].price;
+            this.crrIndex.splice(crr, 1);
+        }
+    }
+});
+
+</script>
+</body>
+</html>
